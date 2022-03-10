@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
+const todoRoutes = require('./routes/todoRoutes');
 const connectToDB = require('./config/database');
 
 connectToDB();
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.use('/api/users', userRoutes);
+app.use('/api/todos', todoRoutes);
 
 app.use((err, req, res, next) => {
   res.status(500);
