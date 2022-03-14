@@ -1,3 +1,5 @@
+import {useSelector} from 'react-redux';
+
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
@@ -9,9 +11,10 @@ import Container from '@mui/material/Container';
 import {Link} from 'react-router-dom';
 import {List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
-const loginState = true;
-
 function Header() {
+  const userState = useSelector((state) => state.user);
+  console.log(userState);
+  const {user} = userState;
   return (
     <>
       <AppBar elevation={0}>
@@ -26,7 +29,7 @@ function Header() {
             }}
           >
             <Typography sx={{mr: 5}}>TODO App</Typography>
-            {loginState ? (
+            {user ? (
               <>
                 <Paper
                   component="form"

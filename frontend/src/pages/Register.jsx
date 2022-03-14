@@ -1,22 +1,34 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {Paper} from '@mui/material';
+import TransitionAlert from '../components/TransitionAlert';
 
 import {registerUserRequest, registerUserError} from '../actions/userAction';
 
 function Register() {
+  const userState = useSelector((state) => state.user);
+  const {registerSuccess, error} = userState;
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     repeatPassword: '',
   });
+
+  useEffect(() => {
+    if (registerSuccess) {
+      navigate('/login');
+    }
+  }, [registerSuccess, navigate]);
 
   const handleSubmitEvent = (e) => {
     e.preventDefault();
@@ -26,8 +38,7 @@ function Register() {
     if (password === repeatPassword) {
       dispatch(registerUserRequest(formData));
     } else {
-      console.log('Password do not match');
-      dispatch(registerUserError());
+      dispatch(registerUserError('Password do not match'));
     }
   };
 
@@ -98,6 +109,7 @@ function Register() {
             Register
           </Button>
         </form>
+        {error && <TransitionAlert error={error} />}
       </Paper>
     </Container>
   );

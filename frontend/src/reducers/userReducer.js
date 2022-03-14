@@ -8,11 +8,14 @@ import {
   REGISTER_USER_SUCCESS,
 } from '../constants/userConstant';
 
+const user = localStorage.getItem('user');
+
 const initialState = {
   loading: false,
-  success: false,
+  registerSuccess: false,
+  loginSuccess: false,
   error: '',
-  user: null,
+  user: user ? user : null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -21,45 +24,51 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        success: false,
+        LoginSuccess: false,
+        error: '',
       };
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-        success: true,
+        loginSuccess: true,
         user: action.payload,
+        error: '',
       };
     case LOGIN_USER_ERROR:
       return {
         ...state,
         loading: false,
-        success: false,
+        loginSuccess: false,
         error: action.payload,
+        user: null,
       };
     case LOGOUT_USER_SUCCESS:
       return {
         ...state,
-        success: true,
+        registerSuccess: false,
+        loginSuccess: false,
         user: null,
       };
     case REGISTER_USER_REQUEST:
       return {
         ...state,
         loading: true,
-        success: false,
+        registerSuccess: false,
+        error: '',
       };
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-        success: true,
+        registerSuccess: true,
+        error: '',
       };
     case REGISTER_USER_ERROR:
       return {
         ...state,
         loading: false,
-        success: false,
+        registerSuccess: false,
         error: action.payload,
       };
     default:

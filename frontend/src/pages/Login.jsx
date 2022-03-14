@@ -1,21 +1,33 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {Paper} from '@mui/material';
+import TransitionAlert from '../components/TransitionAlert';
 
 import {loginUserRequest} from '../actions/userAction';
 
 function Login() {
+  const userState = useSelector((state) => state.user);
+  const {loginSuccess, error} = userState;
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (loginSuccess) {
+      navigate('/');
+    }
+  }, [loginSuccess, navigate]);
 
   const handleSubmitEvent = (e) => {
     e.preventDefault();
@@ -80,6 +92,7 @@ function Login() {
             Login
           </Button>
         </form>
+        {error && <TransitionAlert error={error} />}
       </Paper>
     </Container>
   );

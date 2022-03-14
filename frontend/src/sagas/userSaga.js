@@ -39,7 +39,7 @@ function* handleLoginUser({payload}) {
   try {
     yield loginUserRequest();
     const response = yield call(loginUser, payload);
-    yield localStorage.setItem('userId', JSON.stringify(response.data._id));
+    yield localStorage.setItem('user', response.data._id);
     yield put(loginUserSuccess(response.data));
   } catch (error) {
     yield put(loginUserError('Failed to login. Please try again'));
