@@ -1,10 +1,34 @@
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {Paper} from '@mui/material';
 
+import {loginUserRequest} from '../actions/userAction';
+
 function Login() {
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleSubmitEvent = (e) => {
+    e.preventDefault();
+    dispatch(loginUserRequest(formData));
+  };
+
+  const handleChangeEvent = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <Container
       maxWidth="lg"
@@ -25,9 +49,26 @@ function Login() {
             display: 'flex',
             flexDirection: 'column',
           }}
+          onSubmit={handleSubmitEvent}
         >
-          <TextField label="Username" type="string" focused margin="normal" />
-          <TextField label="Password" type="password" focused margin="normal" />
+          <TextField
+            label="Username"
+            type="string"
+            focused
+            margin="normal"
+            name="username"
+            value={formData.username}
+            onChange={handleChangeEvent}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            focused
+            margin="normal"
+            name="password"
+            value={formData.password}
+            onChange={handleChangeEvent}
+          />
 
           <Button
             type="submit"

@@ -1,7 +1,7 @@
 const Todo = require('../models/todoSchema');
 
 const getTodos = async (req, res) => {
-  const allTodos = await Todo.find({user: req.params.id});
+  const allTodos = await Todo.find({user: req.params.userId});
 
   if (!allTodos || allTodos.length === 0) {
     res.status(400).send('No todo');

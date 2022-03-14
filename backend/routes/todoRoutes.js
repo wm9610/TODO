@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.get('/:id', getTodos);
+router.get('/:userId', getTodos);
 
 router.post('/create/:id', createTodo);
 
