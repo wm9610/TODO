@@ -1,8 +1,15 @@
 import {format} from 'date-fns';
-import {Masonry} from '@mui/lab';
+import {useState} from 'react';
+
+import Masonry from '@mui/lab/Masonry';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+
 import TodoCard from '../components/TodoCard';
+import CreateTodo from '../components/CreateTodo';
 
 const todos = [
   {
@@ -73,18 +80,40 @@ const todos = [
 ];
 
 function Home() {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
   return (
     <Container maxWidth="lg">
       <br />
-      <Typography variant="h5" component="h1">
-        Today is {format(new Date(), 'do MMMM Y')}
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+        }}
+      >
+        <Typography variant="h5" component="h1">
+          Today is {format(new Date(), 'do MMMM Y')}
+        </Typography>
+        <Fab size="small" color="secondary" onClick={handleToggle}>
+          <AddIcon />
+        </Fab>
+      </Box>
+
       <br />
       <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
         {todos.map((todo, index) => (
           <TodoCard {...todo} index={index} key={index} />
         ))}
       </Masonry>
+      {open && <CreateTodo handleClose={handleClose} open={open} />}
     </Container>
   );
 }
