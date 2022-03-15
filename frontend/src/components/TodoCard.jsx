@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 function TodoCard(props) {
   return (
@@ -24,10 +24,11 @@ function TodoCard(props) {
       <CardActions disableSpacing>
         <Button size="small">Edit</Button>
         <Button size="small">Delete</Button>
-        <Switch id="isCompleted" />
-        <InputLabel htmlFor="isCompleted" sx={{fontSize: 14}}>
-          COMPLETED
-        </InputLabel>
+        <FormControlLabel
+          control={<Switch />}
+          label="COMPLETED"
+          sx={{ml: '0.15rem'}}
+        />
       </CardActions>
     </Card>
   );
