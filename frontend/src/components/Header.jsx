@@ -1,4 +1,5 @@
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -11,10 +12,20 @@ import Container from '@mui/material/Container';
 import {Link} from 'react-router-dom';
 import {List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
+import {logoutUserRequest} from '../actions/userAction';
+
 function Header() {
   const userState = useSelector((state) => state.user);
-  console.log(userState);
   const {user} = userState;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClickEvent = () => {
+    dispatch(logoutUserRequest());
+    navigate('/login');
+  };
+
   return (
     <>
       <AppBar elevation={0}>
@@ -46,7 +57,11 @@ function Header() {
                 </Paper>
                 <List sx={{display: 'flex'}}>
                   <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
+                    <ListItemButton
+                      component={Link}
+                      to="/login"
+                      onClick={handleClickEvent}
+                    >
                       <ListItemText primary="Logout" />
                     </ListItemButton>
                   </ListItem>
