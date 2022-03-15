@@ -2,7 +2,7 @@ import {
   LOGIN_USER_ERROR,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
-  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_REQUEST,
   REGISTER_USER_ERROR,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
@@ -43,7 +43,7 @@ const userReducer = (state = initialState, action) => {
         error: action.payload,
         user: null,
       };
-    case LOGOUT_USER_SUCCESS:
+    case LOGOUT_USER_REQUEST:
       return {
         ...state,
         registerSuccess: false,

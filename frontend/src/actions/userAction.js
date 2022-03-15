@@ -2,7 +2,7 @@ import {
   LOGIN_USER_ERROR,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
-  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_REQUEST,
   REGISTER_USER_ERROR,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
@@ -43,8 +43,8 @@ const loginUserError = (error) => ({
 });
 
 // Logout user
-const logoutUserSuccess = () => ({
-  type: LOGOUT_USER_SUCCESS,
+const logoutUserRequest = () => ({
+  type: LOGOUT_USER_REQUEST,
 });
 
 export {
@@ -54,5 +54,5 @@ export {
   loginUserRequest,
   loginUserSuccess,
   loginUserError,
-  logoutUserSuccess,
+  logoutUserRequest,
 };

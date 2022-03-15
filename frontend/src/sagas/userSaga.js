@@ -11,6 +11,7 @@ import {
 } from '../actions/userAction';
 import {
   LOGIN_USER_REQUEST,
+  LOGOUT_USER_REQUEST,
   REGISTER_USER_REQUEST,
 } from '../constants/userConstant';
 
@@ -46,8 +47,14 @@ function* handleLoginUser({payload}) {
   }
 }
 
+function* handleLogoutUser() {
+  console.log('logout');
+  yield localStorage.setItem('user', '');
+}
+
 //watcher saga
 export default function* userSaga() {
   yield takeEvery(REGISTER_USER_REQUEST, handleRegisterUser);
   yield takeEvery(LOGIN_USER_REQUEST, handleLoginUser);
+  yield takeEvery(LOGOUT_USER_REQUEST, handleLogoutUser);
 }
