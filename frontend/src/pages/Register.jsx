@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {Paper} from '@mui/material';
+import Paper from '@mui/material/Paper';
 import TransitionAlert from '../components/TransitionAlert';
 
 import {registerUserRequest, registerUserError} from '../actions/userAction';
@@ -74,7 +74,7 @@ function Register() {
           <TextField
             label="Username"
             type="string"
-            focused
+            required
             margin="normal"
             name="username"
             value={formData.username}
@@ -83,7 +83,7 @@ function Register() {
           <TextField
             label="Password"
             type="password"
-            focused
+            required
             margin="normal"
             name="password"
             value={formData.password}
@@ -92,7 +92,7 @@ function Register() {
           <TextField
             label="Repeat Password"
             type="password"
-            focused
+            required
             margin="normal"
             name="repeatPassword"
             value={formData.repeatPassword}

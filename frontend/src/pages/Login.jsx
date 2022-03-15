@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {Paper} from '@mui/material';
+import Paper from '@mui/material/Paper';
 import TransitionAlert from '../components/TransitionAlert';
 
 import {loginUserRequest} from '../actions/userAction';
@@ -66,7 +66,7 @@ function Login() {
           <TextField
             label="Username"
             type="string"
-            focused
+            required
             margin="normal"
             name="username"
             value={formData.username}
@@ -75,7 +75,7 @@ function Login() {
           <TextField
             label="Password"
             type="password"
-            focused
+            required
             margin="normal"
             name="password"
             value={formData.password}
