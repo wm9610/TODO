@@ -16,14 +16,14 @@ import {searchTodoRequest} from '../actions/todoAction';
 
 function Header() {
   const {user} = useSelector((state) => state.user);
-  const todoState = useSelector((state) => state.todo);
   const [searchItem, setSearchItem] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClickEvent = () => {
+  const handleLogout = () => {
     dispatch(logoutUserRequest());
+    setSearchItem('');
     navigate('/login');
   };
 
@@ -68,7 +68,7 @@ function Header() {
                     <ListItemButton
                       component={Link}
                       to="/login"
-                      onClick={handleClickEvent}
+                      onClick={handleLogout}
                     >
                       <ListItemText primary="Logout" />
                     </ListItemButton>
