@@ -12,7 +12,7 @@ import {Link} from 'react-router-dom';
 import {List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
 import {logoutUserRequest} from '../actions/userAction';
-import {searchTodoRequest} from '../actions/todoAction';
+import {fetchTodoSuccess, searchTodoRequest} from '../actions/todoAction';
 
 function Header() {
   const {user} = useSelector((state) => state.user);
@@ -24,6 +24,7 @@ function Header() {
   const handleLogout = () => {
     dispatch(logoutUserRequest());
     setSearchItem('');
+    dispatch(fetchTodoSuccess([]));
     navigate('/login');
   };
 
