@@ -40,10 +40,9 @@ function CreateTodo(props) {
           onSubmit={handleSubmitEvent}
         >
           <TextField
-            label="TODO"
             type="string"
             multiline
-            rows="3"
+            rows="5"
             required
             margin="normal"
             name="context"

@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 function TodoCard(props) {
   return (
-    <Card elevation={3}>
+    <Card elevation={3} sx={{backgroundColor: 'error'}}>
       <CardContent>
         <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
           # Item {props.index + 1}
@@ -22,10 +22,12 @@ function TodoCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button size="small">Edit</Button>
+        <Button size="small" disabled={false}>
+          Edit
+        </Button>
         <Button size="small">Delete</Button>
         <FormControlLabel
-          control={<Switch />}
+          control={<Switch disabled={false} />}
           label="COMPLETED"
           sx={{ml: '0.15rem'}}
         />

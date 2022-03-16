@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 import {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
 import Masonry from '@mui/lab/Masonry';
@@ -9,87 +9,25 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import TodoCard from '../components/TodoCard';
 import CreateTodo from '../components/CreateTodo';
 
-const todos = [
-  {
-    _id: '622a1c1254c893dc29ef0134',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context: 'Buy coffee',
-    isCompleted: true,
-    createdAt: '2022-03-10T15:41:06.770Z',
-    updatedAt: '2022-03-10T15:48:45.735Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, maxime',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context: 'Repair tele',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context: 'Repair tele',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context: 'Repair tele',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context: 'Repair tele',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-  {
-    _id: '622a1c1b54c893dc29ef0136',
-    user: '622a0d7cf92a8c64d08d57fc',
-    context:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, maxime',
-    isCompleted: false,
-    createdAt: '2022-03-10T15:41:15.587Z',
-    updatedAt: '2022-03-10T15:41:15.587Z',
-    __v: 0,
-  },
-];
+import {fetchTodoRequest} from '../actions/todoAction';
 
 function Home() {
   const {user} = useSelector((state) => state.user);
+  const {loading, todos, error} = useSelector((state) => state.todo);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
-  }, [navigate, user]);
+    dispatch(fetchTodoRequest());
+  }, [navigate, dispatch, user]);
 
   const [open, setOpen] = useState(false);
 
@@ -119,11 +57,16 @@ function Home() {
       </Box>
 
       <br />
-      <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
-        {todos.map((todo, index) => (
-          <TodoCard {...todo} index={index} key={index} />
-        ))}
-      </Masonry>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
+          {todos.map((todo, index) => (
+            <TodoCard {...todo} index={index} key={index} />
+          ))}
+        </Masonry>
+      )}
+
       {open && <CreateTodo handleClose={handleClose} open={open} />}
     </Container>
   );
