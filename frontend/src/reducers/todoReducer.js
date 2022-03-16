@@ -41,6 +41,23 @@ const todoReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case CREATE_TODO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CREATE_TODO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todos: [...state.todos, action.payload],
+      };
+    case CREATE_TODO_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

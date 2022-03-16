@@ -1,6 +1,11 @@
 import axios from 'axios';
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {fetchTodoError, fetchTodoSuccess} from '../actions/todoAction';
+import {
+  createTodoError,
+  createTodoSuccess,
+  fetchTodoError,
+  fetchTodoSuccess,
+} from '../actions/todoAction';
 
 import {
   FETCH_TODO_REQUEST,
@@ -26,19 +31,33 @@ const fetchTodo = () => {
   return axios.get(API_URL + localStorage.getItem('user'));
 };
 
+const createTodo = (todo) => {
+  return axios.post(API_URL + '/create/' + localStorage.getItem('user'), todo);
+};
+
 //worker saga
-function* handlefetchTodo() {
+function* handleFetchTodo() {
   try {
     const response = yield call(fetchTodo);
     yield put(fetchTodoSuccess(response.data));
   } catch (error) {
-    fetchTodoError('Cannot fetch todo list from server');
+    fetchTodoError('Cannot fetch TODO list from server');
+  }
+}
+
+function* handleCreateTodo({payload}) {
+  try {
+    const response = yield call(createTodo, payload);
+    yield put(createTodoSuccess(response.data));
+  } catch (error) {
+    createTodoError('Failed to create new TODO');
   }
 }
 
 //watcher saga
 function* todoSaga() {
-  yield takeEvery(FETCH_TODO_REQUEST, handlefetchTodo);
+  yield takeEvery(FETCH_TODO_REQUEST, handleFetchTodo);
+  yield takeEvery(CREATE_TODO_REQUEST, handleCreateTodo);
 }
 
 export default todoSaga;

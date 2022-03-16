@@ -1,21 +1,31 @@
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {Backdrop, Paper} from '@mui/material';
+import {createTodoRequest} from '../actions/todoAction';
 
 function CreateTodo(props) {
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    context: '',
+  });
+
   const handleSubmitEvent = (e) => {
     e.preventDefault();
     props.handleClose();
+    dispatch(createTodoRequest(formData));
   };
 
   const handleChangeEvent = (e) => {
-    // setFormData((prevState) => ({
-    //   ...prevState,
-    //   [e.target.name]: e.target.value,
-    // }));
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
-  let formData = {};
 
   return (
     <Backdrop
