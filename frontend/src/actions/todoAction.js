@@ -26,7 +26,7 @@ const fetchTodoSuccess = (todos) => ({
   payload: todos,
 });
 
-const fetchTodoError = (error) => ({
+const fetchTodoError = ({error}) => ({
   type: FETCH_TODO_ERROR,
   payload: error,
 });

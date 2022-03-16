@@ -43,7 +43,7 @@ function* handleFetchTodo() {
     const response = yield call(fetchTodo);
     yield put(fetchTodoSuccess(response.data));
   } catch (error) {
-    fetchTodoError('Cannot fetch TODO list from server');
+    fetchTodoError({});
   }
 }
 

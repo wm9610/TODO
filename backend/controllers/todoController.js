@@ -4,7 +4,7 @@ const getTodos = async (req, res) => {
   const allTodos = await Todo.find({user: req.params.userId});
 
   if (!allTodos || allTodos.length === 0) {
-    res.status(400).send('No todo');
+    return res.status(400).send('No todo');
   }
 
   res.status(200).json(allTodos);
@@ -26,7 +26,7 @@ const editTodo = async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   if (!todo) {
-    res.status(400).send('Invalid todo ID');
+    return res.status(400).send('Invalid todo ID');
   }
 
   const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
@@ -40,7 +40,7 @@ const updateTodoStatus = async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   if (!todo) {
-    res.status(400).send('Invalid todo ID');
+    return res.status(400).send('Invalid todo ID');
   }
 
   const updatedTodo = await Todo.findByIdAndUpdate(
@@ -58,7 +58,7 @@ const deleteTodo = async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   if (!todo) {
-    res.status(401).send('Invalid todo ID');
+    return res.status(401).send('Invalid todo ID');
   }
 
   await todo.remove();
