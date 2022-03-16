@@ -8,14 +8,10 @@ import {
   REGISTER_USER_SUCCESS,
 } from '../constants/userConstant';
 
-const registerUserRequest = (user) => {
-  console.log('register user request');
-  return {type: REGISTER_USER_REQUEST, payload: user};
-};
-// const registerUserRequest = (user) => ({
-//   type: REGISTER_USER_REQUEST,
-//   payload: user,
-// });
+const registerUserRequest = (user) => ({
+  type: REGISTER_USER_REQUEST,
+  payload: user,
+});
 
 const registerUserSuccess = () => ({
   type: REGISTER_USER_SUCCESS,

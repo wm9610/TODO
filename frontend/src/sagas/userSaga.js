@@ -3,10 +3,8 @@ import axios from 'axios';
 import {takeEvery, put, call} from 'redux-saga/effects';
 import {
   registerUserError,
-  registerUserRequest,
   registerUserSuccess,
   loginUserError,
-  loginUserRequest,
   loginUserSuccess,
 } from '../actions/userAction';
 import {
@@ -28,7 +26,7 @@ const loginUser = (user) => {
 //worker saga
 function* handleRegisterUser({payload}) {
   try {
-    yield registerUserRequest();
+    //yield registerUserRequest();
     yield call(registerUser, payload);
     yield put(registerUserSuccess());
   } catch (error) {
@@ -38,7 +36,7 @@ function* handleRegisterUser({payload}) {
 
 function* handleLoginUser({payload}) {
   try {
-    yield loginUserRequest();
+    //yield loginUserRequest();
     const response = yield call(loginUser, payload);
     yield localStorage.setItem('user', response.data._id);
     yield put(loginUserSuccess(response.data));
@@ -48,7 +46,6 @@ function* handleLoginUser({payload}) {
 }
 
 function* handleLogoutUser() {
-  console.log('logout');
   yield localStorage.setItem('user', '');
 }
 
