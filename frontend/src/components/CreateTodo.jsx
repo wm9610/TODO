@@ -54,6 +54,7 @@ function CreateTodo(props) {
             multiline
             rows="5"
             required
+            autoFocus
             margin="normal"
             name="context"
             value={formData.context}
