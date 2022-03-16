@@ -8,9 +8,9 @@ It support new user registration and display the different list of TODO items ba
 The frontend part is built with React and Material UI, while backend part is built with Express and connected to MongoDB.
 
 Improvement to this project in future: 
--jwt and password encryption implementation
--error handling for frontend and backend
--customize theme and dark mode for Material UI
--edit TODO item
--use cloud MongoDB instead of local
--deploy website
+- jwt and password encryption implementation
+- error handling for frontend and backend
+- customize theme and dark mode for Material UI
+- edit TODO item
+- use cloud MongoDB instead of local
+- deploy website
