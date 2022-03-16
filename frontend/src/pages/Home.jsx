@@ -1,5 +1,7 @@
 import {format} from 'date-fns';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 import Masonry from '@mui/lab/Masonry';
 import Container from '@mui/material/Container';
@@ -80,6 +82,15 @@ const todos = [
 ];
 
 function Home() {
+  const {user} = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [navigate, user]);
+
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
