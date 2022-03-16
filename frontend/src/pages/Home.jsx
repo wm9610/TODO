@@ -16,7 +16,7 @@ import {fetchTodoRequest} from '../actions/todoAction';
 
 function Home() {
   const {user} = useSelector((state) => state.user);
-  const {loading, todos, error} = useSelector((state) => state.todo);
+  const {todos, search} = useSelector((state) => state.todo);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,6 +27,13 @@ function Home() {
     }
     dispatch(fetchTodoRequest());
   }, [navigate, dispatch, user]);
+
+  const newTodos =
+    search.length === 0
+      ? todos
+      : todos.filter((todo) =>
+          todo.context.toLowerCase().includes(search.toLowerCase())
+        );
 
   const [open, setOpen] = useState(false);
 
@@ -57,7 +64,7 @@ function Home() {
 
       <br />
       <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
-        {todos.map((todo, index) => (
+        {newTodos.map((todo, index) => (
           <TodoCard {...todo} index={index} key={todo._id} />
         ))}
       </Masonry>

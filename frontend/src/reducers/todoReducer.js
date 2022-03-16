@@ -15,12 +15,14 @@ import {
   COMPLETE_TODO_REQUEST,
   COMPLETE_TODO_SUCCESS,
   COMPLETE_TODO_ERROR,
+  SEARCH_TODO_REQUEST,
 } from '../constants/todoConstant';
 
 const initialState = {
   loading: false,
   todos: [],
   error: '',
+  search: '',
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -30,6 +32,7 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case FETCH_TODO_SUCCESS:
       return {
         ...state,
@@ -94,6 +97,12 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case SEARCH_TODO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        search: action.payload,
       };
     default:
       return state;

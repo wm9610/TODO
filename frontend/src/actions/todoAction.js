@@ -14,6 +14,7 @@ import {
   COMPLETE_TODO_REQUEST,
   COMPLETE_TODO_SUCCESS,
   COMPLETE_TODO_ERROR,
+  SEARCH_TODO_REQUEST,
 } from '../constants/todoConstant';
 
 const fetchTodoRequest = () => ({
@@ -89,6 +90,11 @@ const completeTodoError = (error) => ({
   payload: error,
 });
 
+const searchTodoRequest = (searchItem) => ({
+  type: SEARCH_TODO_REQUEST,
+  payload: searchItem,
+});
+
 export {
   fetchTodoRequest,
   fetchTodoSuccess,
@@ -105,4 +111,5 @@ export {
   completeTodoRequest,
   completeTodoSuccess,
   completeTodoError,
+  searchTodoRequest,
 };
