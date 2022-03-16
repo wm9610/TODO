@@ -1,4 +1,6 @@
 import {format} from 'date-fns';
+import {useDispatch} from 'react-redux';
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -6,8 +8,19 @@ import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import {completeTodoRequest, deleteTodoRequest} from '../actions/todoAction';
 
 function TodoCard(props) {
+  const dispatch = useDispatch();
+
+  const handleComplete = () => {
+    dispatch(completeTodoRequest(props._id));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTodoRequest(props._id));
+  };
+
   return (
     <Card elevation={3} sx={{backgroundColor: 'error'}}>
       <CardContent>
@@ -18,18 +31,19 @@ function TodoCard(props) {
           {props.context}
         </Typography>
         <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-          {format(new Date(props.createdAt), 'do MMMM Y')}
+          {format(new Date(props.updatedAt), 'do MMMM Y')}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button size="small" disabled={false}>
-          Edit
+        <Button size="small" onClick={handleDelete}>
+          Delete
         </Button>
-        <Button size="small">Delete</Button>
         <FormControlLabel
-          control={<Switch disabled={false} />}
-          label="COMPLETED"
+          control={<Switch disabled={false} checked={props.isCompleted} />}
+          label={props.isCompleted ? 'COMPLETED' : 'PENDING'}
           sx={{ml: '0.15rem'}}
+          disabled={props.isCompleted}
+          onChange={handleComplete}
         />
       </CardActions>
     </Card>

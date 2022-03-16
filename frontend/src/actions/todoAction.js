@@ -45,9 +45,8 @@ const createTodoError = (error) => ({
   payload: error,
 });
 
-const updateTodoRequest = (todo) => ({
+const updateTodoRequest = () => ({
   type: UPDATE_TODO_REQUEST,
-  payload: todo,
 });
 
 const updateTodoSuccess = (todo) => ({
@@ -65,8 +64,9 @@ const deleteTodoRequest = (todoId) => ({
   payload: todoId,
 });
 
-const deleteTodoSuccess = () => ({
+const deleteTodoSuccess = (todoId) => ({
   type: DELETE_TODO_SUCCESS,
+  payload: todoId,
 });
 
 const deleteTodoError = (error) => ({
@@ -79,8 +79,9 @@ const completeTodoRequest = (todoId) => ({
   payload: todoId,
 });
 
-const completeTodoSuccess = () => ({
+const completeTodoSuccess = (todo) => ({
   type: COMPLETE_TODO_SUCCESS,
+  payload: todo,
 });
 
 const completeTodoError = (error) => ({

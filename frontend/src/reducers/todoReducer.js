@@ -1,3 +1,4 @@
+import {ClassNames} from '@emotion/react';
 import {
   FETCH_TODO_REQUEST,
   FETCH_TODO_SUCCESS,
@@ -53,6 +54,42 @@ const todoReducer = (state = initialState, action) => {
         todos: [...state.todos, action.payload],
       };
     case CREATE_TODO_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case COMPLETE_TODO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case COMPLETE_TODO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todos: state.todos.map((todo) => {
+          return todo._id === action.payload._id ? action.payload : todo;
+        }),
+      };
+    case COMPLETE_TODO_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_TODO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_TODO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todos: state.todos.filter((todo) => todo._id !== action.payload),
+      };
+    case DELETE_TODO_ERROR:
       return {
         ...state,
         loading: false,

@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import CircularProgress from '@mui/material/CircularProgress';
 import TodoCard from '../components/TodoCard';
 import CreateTodo from '../components/CreateTodo';
 
@@ -57,16 +56,11 @@ function Home() {
       </Box>
 
       <br />
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
-          {todos.map((todo, index) => (
-            <TodoCard {...todo} index={index} key={index} />
-          ))}
-        </Masonry>
-      )}
-
+      <Masonry columns={{sm: 1, md: 2, lg: 3}} spacing={3}>
+        {todos.map((todo, index) => (
+          <TodoCard {...todo} index={index} key={todo._id} />
+        ))}
+      </Masonry>
       {open && <CreateTodo handleClose={handleClose} open={open} />}
     </Container>
   );

@@ -5,24 +5,18 @@ import {
   createTodoSuccess,
   fetchTodoError,
   fetchTodoSuccess,
+  completeTodoError,
+  completeTodoSuccess,
+  deleteTodoError,
+  deleteTodoSuccess,
 } from '../actions/todoAction';
 
 import {
   FETCH_TODO_REQUEST,
-  FETCH_TODO_SUCCESS,
-  FETCH_TODO_ERROR,
   CREATE_TODO_REQUEST,
-  CREATE_TODO_SUCCESS,
-  CREATE_TODO_ERROR,
   UPDATE_TODO_REQUEST,
-  UPDATE_TODO_SUCCESS,
-  UPDATE_TODO_ERROR,
   DELETE_TODO_REQUEST,
-  DELETE_TODO_SUCCESS,
-  DELETE_TODO_ERROR,
   COMPLETE_TODO_REQUEST,
-  COMPLETE_TODO_SUCCESS,
-  COMPLETE_TODO_ERROR,
 } from '../constants/todoConstant';
 
 const API_URL = '/api/todos/';
@@ -33,6 +27,14 @@ const fetchTodo = () => {
 
 const createTodo = (todo) => {
   return axios.post(API_URL + '/create/' + localStorage.getItem('user'), todo);
+};
+
+const completeTodo = (todoId) => {
+  return axios.put(API_URL + '/complete/' + todoId);
+};
+
+const deleteTodo = (todoId) => {
+  return axios.delete(API_URL + todoId);
 };
 
 //worker saga
@@ -54,10 +56,30 @@ function* handleCreateTodo({payload}) {
   }
 }
 
+function* handleCompleteTodo({payload}) {
+  try {
+    const response = yield call(completeTodo, payload);
+    yield put(completeTodoSuccess(response.data));
+  } catch (error) {
+    completeTodoError('Failed to update complete status');
+  }
+}
+
+function* handleDeleteTodo({payload}) {
+  try {
+    const response = yield call(deleteTodo, payload);
+    yield put(deleteTodoSuccess(response.data.id));
+  } catch (error) {
+    deleteTodoError('Failed to delete TODO item');
+  }
+}
+
 //watcher saga
 function* todoSaga() {
   yield takeEvery(FETCH_TODO_REQUEST, handleFetchTodo);
   yield takeEvery(CREATE_TODO_REQUEST, handleCreateTodo);
+  yield takeEvery(COMPLETE_TODO_REQUEST, handleCompleteTodo);
+  yield takeEvery(DELETE_TODO_REQUEST, handleDeleteTodo);
 }
 
 export default todoSaga;
