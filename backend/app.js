@@ -36,6 +36,6 @@ app.use((err, req, res, next) => {
   res.status(500);
 });
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server started at port: ' + process.env.SERVER_PORT);
 });
