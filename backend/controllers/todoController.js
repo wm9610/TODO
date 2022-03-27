@@ -13,7 +13,7 @@ const getTodos = async (req, res) => {
 const createTodo = async (req, res) => {
   const newTodo = new Todo({
     user: req.params.id,
-    ...req.body,
+    context: req.body.context,
     isCompleted: false,
   });
 

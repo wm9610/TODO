@@ -7,16 +7,18 @@ const {
   deleteTodo,
 } = require('../controllers/todoController');
 
+const verifyToken = require('../middlewares/authMiddleware');
+
 const router = express.Router();
 
-router.get('/:userId', getTodos);
+router.get('/:userId', verifyToken, getTodos);
 
-router.post('/create/:id', createTodo);
+router.post('/create/:id', verifyToken, createTodo);
 
-router.put('/:id', editTodo);
+router.put('/:id', verifyToken, editTodo);
 
-router.put('/complete/:id', updateTodoStatus);
+router.put('/complete/:id', verifyToken, updateTodoStatus);
 
-router.delete('/:id', deleteTodo);
+router.delete('/:id', verifyToken, deleteTodo);
 
 module.exports = router;

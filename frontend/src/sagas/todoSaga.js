@@ -21,20 +21,30 @@ import {
 
 const API_URL = '/api/todos/';
 
+const token = {
+  headers: {
+    Token: `Bearer ${localStorage.getItem('token')}`,
+  },
+};
+
 const fetchTodo = () => {
-  return axios.get(API_URL + localStorage.getItem('user'));
+  return axios.get(API_URL + localStorage.getItem('user'), token);
 };
 
 const createTodo = (todo) => {
-  return axios.post(API_URL + '/create/' + localStorage.getItem('user'), todo);
+  return axios.post(
+    API_URL + '/create/' + localStorage.getItem('user'),
+    todo,
+    token
+  );
 };
 
 const completeTodo = (todoId) => {
-  return axios.put(API_URL + '/complete/' + todoId);
+  return axios.put(API_URL + '/complete/' + todoId, null, token);
 };
 
 const deleteTodo = (todoId) => {
-  return axios.delete(API_URL + todoId);
+  return axios.delete(API_URL + todoId, token);
 };
 
 //worker saga

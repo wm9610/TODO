@@ -39,6 +39,7 @@ function* handleLoginUser({payload}) {
     //yield loginUserRequest();
     const response = yield call(loginUser, payload);
     yield localStorage.setItem('user', response.data._id);
+    yield localStorage.setItem('token', response.data.token);
     yield put(loginUserSuccess(response.data));
   } catch (error) {
     yield put(loginUserError('Failed to login. Please try again'));
@@ -47,6 +48,7 @@ function* handleLoginUser({payload}) {
 
 function* handleLogoutUser() {
   yield localStorage.setItem('user', '');
+  yield localStorage.setItem('token', '');
 }
 
 //watcher saga
