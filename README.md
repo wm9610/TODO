@@ -1,11 +1,12 @@
 # TODO
 
-This project is to consolidate the learning in MERN stack web development.
+This project is built to consolidate the learning in MERN stack web development.
 
 This project provides functionality to create new TODO items, and track the existing TODO items.
 It support new user registration and display the different list of TODO items based on user.
 
-The frontend part is built with React and Material UI, while backend part is built with Express and connected to MongoDB.
+Backend - Create REST API with Express to perform CRUD operation to MongoDB.
+Frontend - Create user interface using React and Material UI and manage component state using Redux and Redux-Saga.
 
 Improvement to this project in future:
 
@@ -14,4 +15,6 @@ Improvement to this project in future:
 - customize theme and dark mode for Material UI
 - edit TODO item
 - use cloud MongoDB instead of local //done
-- deploy website
+- deploy website //done
+
+Demo: https://wm-mern-todo.herokuapp.com
